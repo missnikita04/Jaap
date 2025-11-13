@@ -98,7 +98,7 @@ const Dashboard = () => {
         </motion.div>
 
         {/* Inspirational Quote */}
-        <div className="mt-8 text-center text-sm text-gray-600 italic">
+        <div className="mt-7 text-center text-sm text-gray-600 italic">
           "Every chant brings you closer to peace within."
         </div>
       </motion.div>
