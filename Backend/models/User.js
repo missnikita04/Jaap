@@ -15,7 +15,14 @@ const UserSchema= new mongoose.Schema({
     password:{
         type:String,
         required:true,
-    }
-    
-})
+    },
+ otp: {
+     type: String, 
+     default: null 
+    },         // ✅ add this
+  otpExpires: { 
+    type: Date,
+     default: null
+     },
+    })  
 export default mongoose.model("User",UserSchema)

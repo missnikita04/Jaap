@@ -1,26 +1,32 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
-    
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
 
+  // Handle input change
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // Handle login submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:5000/api/auth/login", form);
-      localStorage.setItem("token", res.data.token); // Save JWT token
+      localStorage.setItem("token", res.data.token);
       setMessage("Login successful!");
-      setTimeout(() => navigate("/dashboard"), []); // Redirect after success
+      //  Clear form fields
+      setForm({
+        email: "",
+        password: "",
+      });
+      setTimeout(() => navigate("/dashboard"), 1000);
     } catch (err) {
-      setMessage(err.response?.data?.error || "Invalid credentials");
+      setMessage(err.response?.data?.error || "❌ Invalid credentials");
     }
   };
 
@@ -31,6 +37,7 @@ const Login = () => {
           Login
         </h2>
 
+        {/*  LOGIN FORM */}
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label className="block mb-1 font-semibold" htmlFor="email">
@@ -62,6 +69,16 @@ const Login = () => {
             />
           </div>
 
+          {/* 🔹 Link to forget password page */}
+          <div className="text-right">
+            <Link
+              to="/forget-password"
+              className="text-sm text-[#F9CB43] hover:text-yellow-300 transition"
+            >
+              Forgot Password?
+            </Link>
+          </div>
+
           <button
             type="submit"
             className="w-full bg-[#F9CB43] text-black font-bold py-2 rounded-xl hover:scale-105 transition-all"
@@ -74,12 +91,12 @@ const Login = () => {
 
         <p className="text-center text-gray-300 mt-5">
           Don’t have an account?{" "}
-          <a
-            href="/signup"
+          <Link
+            to="/signup"
             className="text-[#F9CB43] hover:text-yellow-400 font-medium transition-all"
           >
             Sign Up
-          </a>
+          </Link>
         </p>
       </div>
     </div>

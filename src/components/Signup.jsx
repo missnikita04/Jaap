@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const SignupForm = () => {
-    const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("");
   const [form, setFormData] = useState({
-    
     username: "",
     email: "",
     password: "",
@@ -14,17 +13,23 @@ const SignupForm = () => {
     setFormData({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit =async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Signup data:", form);
     // Here you can call your API to register the user
 
-    try{
-await axios.post("http://localhost:5000/api/auth/signup", form);
-        setMessage("signup succesfully you can now login");
-    }catch(err){
-        setMessage(err.response?.data?.error || "Error")
-        
+    try {
+      await axios.post("http://localhost:5000/api/auth/signup", form);
+      setMessage("signup succesfully you can now login");
+      // ✅ clear form fields
+      setFormData({
+        username: "",
+        email: "",
+        password: "",
+      });
+      setTimeout(() => navigate("/login"), 1500);
+    } catch (err) {
+      setMessage(err.response?.data?.error || "Error");
     }
   };
 
@@ -83,16 +88,11 @@ await axios.post("http://localhost:5000/api/auth/signup", form);
               required
             />
           </div>
-
-          {/* Forgot Password */}
-          <div className="text-right">
-            <a
-              href="/forgot-password"
-              className="text-[#F9CB43] hover:text-yellow-400 text-sm transition-all"
-            >
-              Forgot Password?
-            </a>
-          </div>
+          {message && (
+            <p className="text-center mt-4 text-yellow-400 font-medium">
+              {message}
+            </p>
+          )}
 
           {/* Submit */}
           <button

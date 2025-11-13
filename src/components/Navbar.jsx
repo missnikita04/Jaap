@@ -7,9 +7,12 @@ const Navbar = () => {
       <div className="flex flex-wrap justify-between items-center px-4 sm:px-6 md:px-10 h-14 sm:h-16">
 
         {/* Logo / Title */}
-        <h1 className="text-lg sm:text-2xl md:text-3xl text-[#8A0000] font-bold drop-shadow-[0_0_10px_rgba(255,200,0,0.8)]">
+
+        <Link  
+        to ='/' 
+        className="text-lg sm:text-2xl md:text-3xl text-[#8A0000] font-bold drop-shadow-[0_0_10px_rgba(255,200,0,0.8)]">
           🕉️ Jap Bhakti
-        </h1>
+        </Link>
 
         {/* Buttons */}
         <div className="flex gap-2 sm:gap-3 md:gap-4 items-center">

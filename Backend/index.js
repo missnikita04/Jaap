@@ -3,8 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./Routes/auth.js";
-import dashboardRoutes from './Routes/dashboard.js';
-// import countRoute from './Routes/count.js'
+import dashboardRoutes from './Routes/dashboard.js'
 // import countRoutes from "./Routes/count.js";
 
 dotenv.config();
@@ -33,18 +32,16 @@ app.get("/api/count",(req,res)=>{
   res.json({totalCount});
 })
 
-// Route to receive count
-app.post("/api/count", (req, res) => {
-  const { count } = req.body;
-  totalCount += count;
-  console.log("Received count:", count, "Total count:", totalCount);
-  res.json({ message: "Count received", totalCount });
+app.post("/test", (req, res) => {
+  console.log("✅ Test route hit");
+  res.json({ message: "Server working fine" });
 });
 
+// Route to receive count
+app.use("/api/dashboard", dashboardRoutes);
 
 
 //mount dahsboard route
-app.use("/api/dashboard",dashboardRoutes);
 
 app.listen(5000,()=>{
     console.log("server running on port 5000");

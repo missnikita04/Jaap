@@ -7,7 +7,9 @@ import Signup from './components/Signup'
 import Login  from './components/Login'
 import Dashboard from './components/Dashboard'
 import ProtectedRoute from './components/ProtectedRoute'
+import ForgotPasswordPopup from './components/forgetPasswordPopup'
 const App = () => {
+
   return (
    <>
   <Navbar/>
@@ -16,7 +18,10 @@ const App = () => {
         <Route path='/Jaap' element={<Jaap/>}/>
         <Route path='/signup' element={<Signup/>}/>
        <Route path='/login' element={<Login/>}/>
-              <Route path='/dashboard' element={  <ProtectedRoute>
+ <Route path="/forget-password" element={<ForgotPasswordPopup />} />     
+  
+     <Route path='/dashboard' element={ 
+       <ProtectedRoute>
       <Dashboard />
     </ProtectedRoute>}/>
 

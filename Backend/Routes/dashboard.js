@@ -1,14 +1,91 @@
+// backend/Routes/dashboard.js
 import express from "express";
-import { verifyToken } from "../Middleware/authMiddleware.js";
+import Dashboard from "../models/Dashboard.js";
+import User from '../models/User.js'
+import { verifyToken } from '../Middleware/authMiddleware.js'; 
+const router = express.Router();
 
-const router =express.Router();
+// GET dashboard (total count + rounds + message)
+router.get("/",verifyToken, async (req, res) => {
+ try {
+    const userId = req.user.id; // decoded from JWT
+     // 🧩 Find the actual user to get username
+    const currentUser = await User.findById(userId).select("username");
+    if (!currentUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
 
-router.get("/",verifyToken,(req,res)=>{
+    let dash = await Dashboard.findOne({ userId });
+
+    if (!dash) {
+      dash = new Dashboard({ userId, count: 0, rounds: 0 });
+      await dash.save();
+    }
+
     res.json({
-        message:"welcome to the protected dashboard",
-        userId:req.user.id,
-    })
+      message: `Welcome to your Jaap Dashboard`,
+ username: currentUser.username,      count: dash.count,
+      rounds: dash.rounds,
+    });
+  } catch (err) {
+    console.error("❌ Error in /api/dashboard:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
 
-})
-export default router
+// POST increment count (protected)
+router.post("/count", verifyToken, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const increment = req.body.count || 1;
 
+    let dash = await Dashboard.findOne({ userId });
+    if (!dash) dash = new Dashboard({ userId, count: 0, rounds: 0 });
+
+    dash.count += increment;
+    if (dash.count >= 108) {
+      dash.rounds += Math.floor(dash.count / 108);
+      dash.count = dash.count % 108;
+    }
+
+    await dash.save();
+
+    res.json({
+      message: "Count updated!",
+      count: dash.count,
+      rounds: dash.rounds,
+    });
+  } catch (err) {
+    console.error("❌ Error in /count:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+// POST increment count
+router.post("/count", async (req, res) => {
+  try {
+    console.log("✅ /count route hit, body:", req.body);
+
+    const increment = req.body.count || 1;
+
+    let dash = await Dashboard.findOne({ username: "global" });
+    if (!dash) dash = new Dashboard({ username: "global", count: 0, rounds: 0 });
+
+    dash.count += increment;
+    if (dash.count >= 108) {
+      dash.rounds += Math.floor(dash.count / 108);
+      dash.count = dash.count % 108;
+    }
+
+    await dash.save();
+
+    res.json({
+      message: "Count updated!",
+      count: dash.count,
+      rounds: dash.rounds,
+    });
+  } catch (err) {
+    console.error("❌ Error in /count:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+export default router;
