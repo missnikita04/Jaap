@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const API_URL = import.meta.env.VITE_API_URL;
 const ForgetPassword = () => {
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ const ForgetPassword = () => {
     try {
       setIsSendingOtp(true);
       const res = await axios.post(
-        "http://localhost:5000/api/auth/forgot-password",
+        `${API_URL}/api/auth/forgot-password`,
         { email }
       );
       setMsg(res.data.msg || "OTP sent to your email");
@@ -38,7 +39,7 @@ const ForgetPassword = () => {
       return alert("Please fill all fields!");
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/reset-password",
+        `${API_URL}/api/auth/reset-password`,
         { email, otp, newPassword }
       );
       setMsg(res.data.msg || "Password reset successful!");

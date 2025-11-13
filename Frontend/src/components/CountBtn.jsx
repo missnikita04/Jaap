@@ -28,7 +28,7 @@ function CountBtn() {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        "http://localhost:5000/api/dashboard/count",
+        `${API_URL}/api/dashboard/count`,
         { count: 1 },
         { headers: { Authorization: `Bearer ${token}` } }
       );

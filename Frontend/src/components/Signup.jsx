@@ -19,7 +19,7 @@ const SignupForm = () => {
     // Here you can call your API to register the user
 
     try {
-      await axios.post("http://localhost:5000/api/auth/signup", form);
+      await axios.post(`${API_URL}/api/auth/signup`, form);
       setMessage("signup succesfully you can now login");
       // ✅ clear form fields
       setFormData({
