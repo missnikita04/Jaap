@@ -4,6 +4,7 @@ import { CiStopwatch } from "react-icons/ci";
 import { IoMdFlower } from "react-icons/io";
 import { GrPowerReset } from "react-icons/gr";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function CountBtn() {
   const [timer, SetTimer] = useState(0);
