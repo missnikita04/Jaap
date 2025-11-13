@@ -79,7 +79,7 @@ const HomePage = () => {
             Don’t have an account?
             <Link
               to="/signup"
-              className="ml-2 text-[#F9CB43] font-medium hover:underline hover:text-[#8A0000] transition-all"
+              className="ml-2 text-white font-medium hover:underline hover:text-[#8A0000] transition-all"
             >
               Sign up
             </Link>

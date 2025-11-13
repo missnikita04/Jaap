@@ -19,13 +19,14 @@ const Login = () => {
     try {
       const res = await axios.post(`${API_URL}/api/auth/login`, form);
       localStorage.setItem("token", res.data.token);
+            setTimeout(() => navigate("/dashboard"), 1000);
+
       setMessage("Login successful!");
       //  Clear form fields
       setForm({
         email: "",
         password: "",
       });
-      setTimeout(() => navigate("/dashboard"), 1000);
     } catch (err) {
       setMessage(err.response?.data?.error || "❌ Invalid credentials");
     }
@@ -33,15 +34,15 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#3B060A] px-4">
-      <div className="w-full max-w-md bg-[#8A0000] rounded-3xl shadow-lg shadow-[#F9CB43]/40 p-8 text-white">
-        <h2 className="text-3xl font-bold text-center text-[#F9CB43] mb-6 drop-shadow-[0_0_10px_rgba(255,200,0,0.8)]">
+      <div className="w-full max-w-md bg-gradient-to-br from-[#FFF8DE] to-[#FBEBAA] text-[#3B060A] rounded-3xl shadow-lg shadow-[#F9CB43]/40 p-8 text-white">
+        <h2 className="text-3xl font-bold text-center text-[#F9CB43] mb-6 ]">
           Login
         </h2>
 
         {/*  LOGIN FORM */}
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block mb-1 font-semibold" htmlFor="email">
+            <label className="block mb-1 text-[#3B060A] font-semibold" htmlFor="email">
               Email
             </label>
             <input
@@ -56,7 +57,7 @@ const Login = () => {
           </div>
 
           <div>
-            <label className="block mb-1 font-semibold" htmlFor="password">
+            <label className="block text-[#3B060A] mb-1 font-semibold" htmlFor="password">
               Password
             </label>
             <input
@@ -74,7 +75,7 @@ const Login = () => {
           <div className="text-right">
             <Link
               to="/forget-password"
-              className="text-sm text-[#F9CB43] hover:text-yellow-300 transition"
+              className="text-sm text-[#8A0000] hover:text-yellow-300 transition"
             >
               Forgot Password?
             </Link>
@@ -90,11 +91,11 @@ const Login = () => {
 
         {message && <p className="text-center text-yellow-400 mt-4">{message}</p>}
 
-        <p className="text-center text-gray-300 mt-5">
+        <p className="text-center text-gray-600 mt-5">
           Don’t have an account?{" "}
           <Link
             to="/signup"
-            className="text-[#F9CB43] hover:text-yellow-400 font-medium transition-all"
+            className="text-[#8A0000] hover:text-yellow-400 font-medium transition-all"
           >
             Sign Up
           </Link>

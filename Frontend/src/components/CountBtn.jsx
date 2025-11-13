@@ -109,14 +109,14 @@ function CountBtn() {
         <div className="ml-1 flex items-center gap-20">
           <p className="mt-10 mb-9 text-3xl font-semibold text-white flex items-center">
             Count :&nbsp;
-            <span className="inline-block w-16 font-mono text-[#F9CB43]">
+            <span className="font-mono text-[#F9CB43]">
               {count}
             </span>
           </p>
 
           <p className="mt-10 mb-9 text-3xl font-semibold text-white flex items-center">
             Round :&nbsp;
-            <span className="inline-block w-16 font-mono text-[#F9CB43]">
+            <span className=" font-mono text-[#F9CB43]">
               {round}
             </span>
           </p>

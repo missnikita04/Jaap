@@ -42,14 +42,17 @@ body,html {
 }
 
 .slick-slide {
-  margin: 0 5px;
-  margin-bottom: 0 !important;
-  padding-bottom: 0 !important;
-
+  padding: 0 10px; /* horizontal spacing between slides */
 }
 .slick-track {
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
+}
+
+/* Makes the center slide automatically scale up */
+.slick-center img {
+  transform: scale(1.3);
+  transition: transform 0.3s;
 }
 
 

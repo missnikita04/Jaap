@@ -35,16 +35,16 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#3B060A] px-4">
-      <div className="w-full max-w-md bg-[#8A0000] rounded-3xl shadow-lg shadow-[#F9CB43]/40 p-8 text-white">
-        <h2 className="text-3xl font-bold text-center text-[#F9CB43] mb-6 drop-shadow-[0_0_10px_rgba(255,200,0,0.8)]">
+    <div className="min-h-screen flex items-center justify-center bg-[#3B060A]  px-4">
+      <div className="w-full max-w-md bg-gradient-to-br from-[#FFF8DE] to-[#FBEBAA] text-[#3B060A]  rounded-3xl shadow-lg shadow-[#F9CB43]/40 p-8 text-white">
+        <h2 className="text-3xl font-bold text-center text-[#F9CB43] mb-6 ">
           Sign Up
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Username */}
           <div>
-            <label className="block mb-1 font-semibold" htmlFor="username">
+            <label className="text-[#3B060A] block mb-1 font-semibold" htmlFor="username">
               Username
             </label>
             <input
@@ -60,7 +60,7 @@ const SignupForm = () => {
 
           {/* Email */}
           <div>
-            <label className="block mb-1 font-semibold" htmlFor="email">
+            <label className=" text-[#3B060A] block mb-1 font-semibold" htmlFor="email">
               Email
             </label>
             <input
@@ -76,7 +76,7 @@ const SignupForm = () => {
 
           {/* Password */}
           <div>
-            <label className="block mb-1 font-semibold" htmlFor="password">
+            <label className=" text-[#3B060A] block mb-1 font-semibold" htmlFor="password">
               Password
             </label>
             <input
@@ -105,11 +105,11 @@ const SignupForm = () => {
         </form>
 
         {/* Already have account */}
-        <p className="text-center text-gray-300 mt-5">
+        <p className="text-center text-gray-700 mt-5">
           Already have an account?{" "}
           <a
             href="/login"
-            className="text-[#F9CB43] hover:text-yellow-400 font-medium transition-all"
+            className="text-[#8A0000] hover:text-yellow-400 font-medium transition-all"
           >
             Login
           </a>
