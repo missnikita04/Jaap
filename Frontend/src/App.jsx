@@ -7,7 +7,7 @@ import Signup from './components/Signup'
 import Login  from './components/Login'
 import Dashboard from './components/Dashboard'
 import ProtectedRoute from './components/ProtectedRoute'
-import ForgotPasswordPopup from './components/forgetPasswordPopup'
+import ForgotPasswordPopup from './components/ForgetPasswordPopup'
 const App = () => {
 
   return (
