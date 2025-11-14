@@ -61,31 +61,4 @@ router.post("/count", verifyToken, async (req, res) => {
   }
 });
 // POST increment count
-router.post("/count", async (req, res) => {
-  try {
-    console.log("✅ /count route hit, body:", req.body);
-
-    const increment = req.body.count || 1;
-
-    let dash = await Dashboard.findOne({ username: "global" });
-    if (!dash) dash = new Dashboard({ username: "global", count: 0, rounds: 0 });
-
-    dash.count += increment;
-    if (dash.count >= 108) {
-      dash.rounds += Math.floor(dash.count / 108);
-      dash.count = dash.count % 108;
-    }
-
-    await dash.save();
-
-    res.json({
-      message: "Count updated!",
-      count: dash.count,
-      rounds: dash.rounds,
-    });
-  } catch (err) {
-    console.error("❌ Error in /count:", err);
-    res.status(500).json({ error: err.message });
-  }
-});
 export default router;

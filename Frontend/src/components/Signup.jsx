@@ -20,15 +20,23 @@ const SignupForm = () => {
     // Here you can call your API to register the user
 
     try {
-      await axios.post(`${API_URL}/api/auth/signup`, form);
-      setMessage("signup succesfully you can now login");
-      // ✅ clear form fields
+ 
+    const res = await axios.post(`${API_URL}/api/auth/signup`, form);
+
+    // 🔥 Save token in localStorage
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("userId", res.data.userId);
+    localStorage.setItem("username", res.data.username);
+
+    setMessage("Signup successful! Redirecting...");
+
+    // 🔥 Redirect directly to dashboard
+    setTimeout(() => navigate("/dashboard"), 800);      // ✅ clear form fields
       setFormData({
         username: "",
         email: "",
         password: "",
       });
-      setTimeout(() => navigate("/login"), 1500);
     } catch (err) {
       setMessage(err.response?.data?.error || "Error");
     }

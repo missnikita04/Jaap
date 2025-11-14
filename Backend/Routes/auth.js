@@ -27,11 +27,22 @@ router.post("/signup", async (req, res) => {
       email,
       password: hashedPassword,
     });
-    console.log(" About to save user:", user);
     await user.save();
-    console.log("user created ");
-    res.status(201).json({ message: "User created" });
-  } catch (err) {
+    // 🔥 Generate token same as login
+    const token = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
+    console.log("user created n token generated ");
+ // 🔥 Send token to frontend!
+    res.status(201).json({
+      message: "User created",
+      token,
+      userId: user._id,
+      username: user.username,
+    });
+    } catch (err) {
     console.error("❌ Signup Error:", err.message);
     res.status(400).json({ error: err.message });
   }
