@@ -25,8 +25,7 @@ const Dashboard = () => {
         setTotal(res.data.count);
         setRounds(res.data.rounds || 0);
       } catch (err) {
-        console.error(err);
-        localStorage.removeItem("token");
+console.log("API ERROR:", err.response?.data || err.message);        localStorage.removeItem("token");
         navigate("/login");
       }
     };

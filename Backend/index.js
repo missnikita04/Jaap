@@ -11,7 +11,10 @@ console.log("JWT_SECRET:", process.env.JWT_SECRET ? "SET" : "MISSING");
 
 
 const app=express();
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ 
+  origin: "https://jaap-counter-cq7o.onrender.com/",
+   credentials: true 
+  }));
 //other middle ware
 app.use(express.json());
 let totalCount = 0;
