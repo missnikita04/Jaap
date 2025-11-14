@@ -12,7 +12,7 @@ console.log("JWT_SECRET:", process.env.JWT_SECRET ? "SET" : "MISSING");
 
 const app=express();
 app.use(cors({ 
-  origin: "https://jaap-counter-cq7o.onrender.com/",
+  origin: "https://jaap-counter-cq7o.onrender.com",
    credentials: true 
   }));
 //other middle ware
@@ -46,7 +46,7 @@ app.use("/api/dashboard", dashboardRoutes);
 
 //mount dahsboard route
 
-app.listen(5000,()=>{
-    console.log("server running on port 5000");
-})
-
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log("Server running on port " + PORT);
+});
