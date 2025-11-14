@@ -16,7 +16,6 @@ const Login = () => {
   // Handle login submit
 const handleSubmit = async (e) => {
   e.preventDefault();
-  setMessage("");
 
   try {
     const res = await axios.post(`${API_URL}/api/auth/login`, form);
@@ -28,11 +27,11 @@ const handleSubmit = async (e) => {
 
     setMessage("Login successful!");
 
-    // Redirect to dashboard
-    navigate("/dashboard");
 
     // Clear form
     setForm({ email: "", password: "" });
+    // Redirect to dashboard
+    navigate("/dashboard");
 
   } catch (err) {
     setMessage(err.response?.data || "❌ Invalid email or password");
