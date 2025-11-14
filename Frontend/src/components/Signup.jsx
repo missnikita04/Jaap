@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const SignupForm = () => {
+  const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [form, setFormData] = useState({
     username: "",
