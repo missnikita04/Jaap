@@ -20,9 +20,9 @@ app.use(express.json());
 let totalCount = 0;
 mongoose.connect(process.env.MONGO_URI,{
      useNewUrlParser: true,
-      useUnifiedTopology: true }).then(()=>{
-    console.log("mogno atlas  connetced")})
-    .catch(err=>console.log(err));
+      useUnifiedTopology: true }).then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
+
 
     //  Test route
 app.get("/", (req, res) => {

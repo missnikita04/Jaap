@@ -15,7 +15,7 @@ const router = express.Router();
 router.post("/signup", async (req, res) => {
   try {
     const { username, email, password } = req.body;
-
+  console.log("Received signup data:", req.body);
     if (!username || !email || !password) {
       return res.status(400).json({ error: "All fields are required" });
     }
@@ -23,6 +23,7 @@ router.post("/signup", async (req, res) => {
     // Check for duplicate username/email
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
     if (existingUser) {
+       console.log("User already exists:", existingUser);
       return res.status(400).json({ error: "Email or username already exists" });
     }
 
@@ -32,7 +33,7 @@ router.post("/signup", async (req, res) => {
     // Create user
     const user = new User({ username, email, password: hashedPassword });
     const savedUser = await user.save();
-
+console.log("Saved user:", savedUser);
     if (!savedUser) {
       return res.status(500).json({ error: "Failed to save user to DB" });
     }
