@@ -14,23 +14,30 @@ const Login = () => {
   };
 
   // Handle login submit
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post(`${API_URL}/api/auth/login`, form);
-      localStorage.setItem("token", res.data.token);
-            setTimeout(() => navigate("/dashboard"), 1000);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setMessage("");
 
-      setMessage("Login successful!");
-      //  Clear form fields
-      setForm({
-        email: "",
-        password: "",
-      });
-    } catch (err) {
-      setMessage(err.response?.data?.error || "❌ Invalid credentials");
-    }
-  };
+  try {
+    const res = await axios.post(`${API_URL}/api/auth/login`, form);
+
+    // Save token + user info
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("userId", res.data.userId);
+    localStorage.setItem("username", res.data.username);
+
+    setMessage("Login successful!");
+
+    // Redirect to dashboard
+    navigate("/dashboard");
+
+    // Clear form
+    setForm({ email: "", password: "" });
+
+  } catch (err) {
+    setMessage(err.response?.data || "❌ Invalid email or password");
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#3B060A] px-4">

@@ -29,11 +29,11 @@ const SignupForm = () => {
     localStorage.setItem("token", res.data.token);
     localStorage.setItem("userId", res.data.userId);
     localStorage.setItem("username", res.data.username);
-
+alert("Signup successful! Please login now.");
     setMessage("Signup successful! Redirecting...");
 
     // 🔥 Redirect directly to dashboard
-    setTimeout(() => navigate("/dashboard"), 800);      // ✅ clear form fields
+    setTimeout(() => navigate("/login"), 800);      // ✅ clear form fields
       setFormData({
         username: "",
         email: "",

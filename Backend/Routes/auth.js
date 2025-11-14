@@ -13,41 +13,40 @@ const router = express.Router();
 
 // -------Sign up Route---------/
 router.post("/signup", async (req, res) => {
-  console.log("📩 Signup route hit");
-  console.log("Request body:", req.body);
   const { username, email, password } = req.body;
-  console.log("receave data");
+
   try {
     if (!username || !email || !password) {
-      console.log("❌ Missing fields");
       return res.status(400).json({ error: "All fields are required" });
     }
+
+    // Check if email already exists
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
+      return res.status(400).json({ error: "Email already exists" });
+    }
+
+    // Check if username already exists
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.status(400).json({ error: "Username already exists" });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({
+
+    await User.create({
       username,
       email,
       password: hashedPassword,
     });
-    await user.save();
-    // 🔥 Generate token same as login
-    const token = jwt.sign(
-      { id: user._id },
-      process.env.JWT_SECRET,
-      { expiresIn: "1d" }
-    );
-    console.log("user created n token generated ");
- // 🔥 Send token to frontend!
-    res.status(201).json({
-      message: "User created",
-      token,
-      userId: user._id,
-      username: user.username,
-    });
-    } catch (err) {
-    console.error("❌ Signup Error:", err.message);
-    res.status(400).json({ error: err.message });
+
+    return res.status(201).json({ message: "User created successfully" });
+  } catch (err) {
+    console.error("Signup Error:", err);
+    res.status(500).json({ error: "Server error" });
   }
 });
+
 
 // Login
 router.post("/login", async (req, res) => {
