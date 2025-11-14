@@ -1,62 +1,53 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 const SignupForm = () => {
   const navigate = useNavigate();
+  const [form, setForm] = useState({ username: "", email: "", password: "" });
   const [message, setMessage] = useState("");
-  const [form, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
 
   const handleChange = (e) => {
-    setFormData({ ...form, [e.target.name]: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Signup data:", form);
-    // Here you can call your API to register the user
+    setMessage(""); // clear previous message
 
     try {
- 
-    const res = await axios.post(`${API_URL}/api/auth/signup`, form);
+      const res = await axios.post(`${API_URL}/api/auth/signup`, form);
 
-    // 🔥 Save token in localStorage
-    localStorage.setItem("token", res.data.token);
-    localStorage.setItem("userId", res.data.userId);
-    localStorage.setItem("username", res.data.username);
-alert("Signup successful! Please login now.");
-    setMessage("Signup successful! Redirecting...");
+      if (res.status === 201 && res.data.userId) {
+        // Save token only after confirmed save
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("userId", res.data.userId);
+        localStorage.setItem("username", res.data.username);
 
-    // 🔥 Redirect directly to dashboard
-    setTimeout(() => navigate("/login"), 800);      // ✅ clear form fields
-      setFormData({
-        username: "",
-        email: "",
-        password: "",
-      });
+        alert("Signup successful! Please login now.");
+        navigate("/login");
+
+        // clear form
+        setForm({ username: "", email: "", password: "" });
+      } else {
+        setMessage("Signup failed! Please try again.");
+      }
     } catch (err) {
-      setMessage(err.response?.data?.error || "Error");
+      console.error("Signup API error:", err);
+      setMessage(err.response?.data?.error || "Signup failed!");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#3B060A]  px-4">
-      <div className="w-full max-w-md bg-gradient-to-br from-[#FFF8DE] to-[#FBEBAA] text-[#3B060A]  rounded-3xl shadow-lg shadow-[#F9CB43]/40 p-8 text-white">
-        <h2 className="text-3xl font-bold text-center text-[#F9CB43] mb-6 ">
-          Sign Up
-        </h2>
+    <div className="min-h-screen flex items-center justify-center bg-[#3B060A] px-4">
+      <div className="w-full max-w-md bg-gradient-to-br from-[#FFF8DE] to-[#FBEBAA] text-[#3B060A] rounded-3xl shadow-lg shadow-[#F9CB43]/40 p-8 text-white">
+        <h2 className="text-3xl font-bold text-center text-[#F9CB43] mb-6">Sign Up</h2>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Username */}
           <div>
-            <label className="text-[#3B060A] block mb-1 font-semibold" htmlFor="username">
-              Username
-            </label>
+            <label className="block mb-1 text-[#3B060A] font-semibold">Username</label>
             <input
               type="text"
               name="username"
@@ -68,11 +59,8 @@ alert("Signup successful! Please login now.");
             />
           </div>
 
-          {/* Email */}
           <div>
-            <label className=" text-[#3B060A] block mb-1 font-semibold" htmlFor="email">
-              Email
-            </label>
+            <label className="block mb-1 text-[#3B060A] font-semibold">Email</label>
             <input
               type="email"
               name="email"
@@ -84,11 +72,8 @@ alert("Signup successful! Please login now.");
             />
           </div>
 
-          {/* Password */}
           <div>
-            <label className=" text-[#3B060A] block mb-1 font-semibold" htmlFor="password">
-              Password
-            </label>
+            <label className="block mb-1 text-[#3B060A] font-semibold">Password</label>
             <input
               type="password"
               name="password"
@@ -99,13 +84,9 @@ alert("Signup successful! Please login now.");
               required
             />
           </div>
-          {message && (
-            <p className="text-center mt-4 text-yellow-400 font-medium">
-              {message}
-            </p>
-          )}
 
-          {/* Submit */}
+          {message && <p className="text-center mt-4 text-yellow-400 font-medium">{message}</p>}
+
           <button
             type="submit"
             className="w-full bg-[#F9CB43] text-black font-bold py-2 rounded-xl hover:scale-105 transition-all"
@@ -114,13 +95,9 @@ alert("Signup successful! Please login now.");
           </button>
         </form>
 
-        {/* Already have account */}
         <p className="text-center text-gray-700 mt-5">
           Already have an account?{" "}
-          <a
-            href="/login"
-            className="text-[#8A0000] hover:text-yellow-400 font-medium transition-all"
-          >
+          <a href="/login" className="text-[#8A0000] hover:text-yellow-400 font-medium transition-all">
             Login
           </a>
         </p>

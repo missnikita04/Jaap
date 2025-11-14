@@ -13,43 +13,43 @@ const router = express.Router();
 
 // -------Sign up Route---------/
 router.post("/signup", async (req, res) => {
-  console.log("📩 Signup route hit");
-  console.log("Request body:", req.body);
-
-  const { username, email, password } = req.body;
-
   try {
+    const { username, email, password } = req.body;
+
     if (!username || !email || !password) {
       return res.status(400).json({ error: "All fields are required" });
     }
 
-    // Check if email already exists
-    const existing = await User.findOne({ email });
-    if (existing) {
-      return res.status(400).json({ error: "Email already registered" });
+    // Check for duplicate username/email
+    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+    if (existingUser) {
+      return res.status(400).json({ error: "Email or username already exists" });
     }
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create and save user
-    const user = new User({
-      username,
-      email,
-      password: hashedPassword,
-    });
+    // Create user
+    const user = new User({ username, email, password: hashedPassword });
+    const savedUser = await user.save();
 
-    await user.save(); // ⬅️ THIS SAVES USER TO MongoDB
-    console.log("✅ User saved in DB:", user);
+    if (!savedUser) {
+      return res.status(500).json({ error: "Failed to save user to DB" });
+    }
 
-    // No token on signup – go to login
-    return res.status(201).json({
-      message: "Signup successful! Redirecting to login...",
+    // Generate token
+    const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+
+    res.status(201).json({
+      message: "User created successfully",
+      token,
+      userId: savedUser._id,
+      username: savedUser.username,
     });
 
   } catch (err) {
-    console.error("❌ Signup Error:", err);
-    return res.status(500).json({ error: "Signup failed: " + err.message });
+    console.error("Signup error:", err.message);
+    res.status(500).json({ error: "Server error: " + err.message });
   }
 });
 
