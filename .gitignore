@@ -9,7 +9,6 @@ Frontend/node_modules/
 Thumbs.db
 
 # Build folders
-/dist
 /build
 
 # Environment files
