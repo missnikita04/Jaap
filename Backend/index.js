@@ -50,7 +50,8 @@ app.post("/test", (req, res) => {
 
 // Fallback route for React SPA - MUST BE LAST
 app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  if (req.path.startsWith("/api")) return res.status(404).json({ error: "Not Found" });
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 // Start server
 const PORT = process.env.PORT || 5000;
