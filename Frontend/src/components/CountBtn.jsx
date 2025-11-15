@@ -122,7 +122,7 @@ function CountBtn() {
       <div className="relative flex justify-center">
         <motion.button
           onClick={handleClick}
-          className={`w-70 sm:w-80 h-25 sm:h-50 flex items-center justify-center gap-2
+          className={`w-[280px] sm:w-[320px] h-[100px] sm:h-[200px] flex items-center justify-center gap-2
              rounded-xl font-bold text-lg sm:text-xl transition-all duration-300 ease-out
              ${clicked ? "bg-red-600 text-white" : "bg-gradient-to-r from-[#FFF287] to-[#FFD54F]"}
              hover:from-[#F9CB43] hover:to-[#FFD54F]`}
@@ -136,17 +136,18 @@ function CountBtn() {
         {/* +1 Animation */}
         <AnimatePresence>
           {showPlusOne && (
-            <motion.div
-              key="plusOne"
-              className="absolute bottom-0 left-0 text-3xl sm:text-3xl font-bold text-pink-600"
-              initial={{ opacity: 0, y: 10, scale: 0.5, rotate: -15 }}
-              animate={{ opacity: 1, y: -25, scale: 1.5, rotate: [0, 15, -10, 0] }}
-              exit={{ opacity: 0, y: -50, scale: 0.5 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
-              +1 🌸
-            </motion.div>
-          )}
+<motion.button
+  onClick={handleClick}
+  className={`w-[280px] sm:w-[320px] h-[100px] sm:h-[150px] flex items-center justify-center gap-2
+    rounded-xl font-bold text-lg sm:text-xl transition-all duration-300 ease-out
+    ${clicked ? "bg-red-600 text-white" : "bg-gradient-to-r from-[#FFF287] to-[#FFD54F]"}
+    hover:from-[#F9CB43] hover:to-[#FFD54F]`}
+  whileTap={{ scale: 0.95 }}
+>
+  <IoMdFlower className="w-6 h-6 sm:w-7 sm:h-7 text-[#3B060A]" />
+  Count
+  <IoMdFlower className="w-6 h-6 sm:w-7 sm:h-7 text-[#3B060A]" />
+</motion.button>          )}
         </AnimatePresence>
       </div>
     </motion.div>

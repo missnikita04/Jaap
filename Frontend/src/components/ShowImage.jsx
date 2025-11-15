@@ -3,10 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const ShowImage = ({ selectedImage }) => {
   return (
-    <div
-      className="relative transform transition-transform duration-500 ease-in-out
-                 hover:shadow-2xl hover:shadow-[#F9CB43] hover:bg-white group p-[4px] rounded-3xl pt-0"
-    >
+    <div className="relative transform transition-transform duration-500 ease-in-out
+                    hover:shadow-[0_0_30px_10px_rgba(249,203,67,0.6)] hover:bg-white group p-1 rounded-3xl pt-0">
       <div className="max-w-[90vw] sm:max-w-[300px] md:max-w-[450px] lg:max-w-[500px] w-full mx-auto">
         <AnimatePresence mode="wait">
           {selectedImage ? (
@@ -17,16 +15,16 @@ const ShowImage = ({ selectedImage }) => {
               exit={{ opacity: 0, scale: 0.8, rotate: 2 }}
               transition={{ duration: 0.6, ease: "easeInOut" }}
               className="bg-[#8A0000] border-2 border-yellow-300 rounded-3xl 
-                         shadow-[0_0_30px_10px_rgba(255,215,0,0.6)] overflow-hidden"
+                         shadow-[0_0_30px_10px_rgba(255,215,0,0.6)] overflow-hidden relative"
             >
               <motion.img
                 src={selectedImage.src}
-                alt="Selected"
+                alt={selectedImage.name}
                 className="mx-auto rounded-lg 
                            w-[200px] h-[300px] sm:w-[300px] sm:h-[450px] md:w-[350px] md:h-[530px] 
                            object-cover shadow-xl border border-black/50
                            transform transition-transform duration-500 ease-in-out
-                           group-hover:scale-105 group-hover:shadow-2xl"
+                           group-hover:scale-105 group-hover:shadow-[0_0_30px_15px_rgba(249,203,67,0.7)]"
                 whileTap={{ scale: 0.95, rotate: [0, -3, 3, 0] }}
               />
 
@@ -40,7 +38,7 @@ const ShowImage = ({ selectedImage }) => {
                 {selectedImage.name}
               </motion.h2>
 
-              <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-30 transition-opacity duration-500 rounded-2xl"></div>
+              <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-30 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
             </motion.div>
           ) : (
             <motion.div
