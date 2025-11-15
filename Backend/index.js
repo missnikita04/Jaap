@@ -33,7 +33,7 @@ mongoose.connect(process.env.MONGO_URI, {
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // Serve React build folder (frontend)
-app.use(express.static(path.join(__dirname, '../Frontend/dist')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // API routes
 app.use("/api/auth", authRoutes);
@@ -49,8 +49,8 @@ app.post("/test", (req, res) => {
 });
 
 // Fallback route for React SPA - MUST BE LAST
-app.use((req, res) => {
-    res.sendFile(path.join(__dirname, '../Frontend/dist/index.html'));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 // Start server
