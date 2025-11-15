@@ -2,16 +2,24 @@ import express from 'express';
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from 'path';
+import { fileURLToPath } from 'url';
 import authRoutes from "./Routes/auth.js";
 import dashboardRoutes from './Routes/dashboard.js'
 // import countRoutes from "./Routes/count.js";
 // Serve React build folder
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
 dotenv.config();
-console.log("JWT_SECRET:", process.env.JWT_SECRET ? "SET" : "MISSING");
-
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const app=express();
+
+app.use(express.json());
+
+// 3️⃣ Serve React build
+app.use(express.static(path.join(__dirname, '../Frontend/dist')));
+
+
+
 app.use(cors({ 
   origin: "https://jaap-counter-cq7o.onrender.com",
    credentials: true 
@@ -45,10 +53,9 @@ app.post("/test", (req, res) => {
 app.use("/api/dashboard", dashboardRoutes);
 
 // Fallback route for React SPA
-app.get('*', (req, res) => {
+app.use((req, res, next) => {
   res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
 });
-
 //mount dahsboard route
 
 const PORT = process.env.PORT || 5000;
