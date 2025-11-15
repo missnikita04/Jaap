@@ -54,7 +54,7 @@ app.use("/api/dashboard", dashboardRoutes);
 
 // Fallback route for React SPA
 app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+  res.sendFile(path.join(__dirname, '../Frontend/dist/index.html'));
 });
 //mount dahsboard route
 
