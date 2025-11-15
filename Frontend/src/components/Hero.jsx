@@ -69,7 +69,7 @@ const HomePage = () => {
             <span className="text-[#8A0000] font-semibold">Jaap Count</span>
             <Link
               to="/login"
-              className="ml-2 text-[#F9CB43] font-medium hover:underline hover:text-[#8A0000] transition-all"
+              className="ml-2 text-white font-medium hover:underline hover:text-[#8A0000] transition-all"
             >
               Login
             </Link>
