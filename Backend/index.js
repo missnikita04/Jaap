@@ -5,60 +5,56 @@ import dotenv from "dotenv";
 import path from 'path';
 import { fileURLToPath } from 'url';
 import authRoutes from "./Routes/auth.js";
-import dashboardRoutes from './Routes/dashboard.js'
-// import countRoutes from "./Routes/count.js";
-// Serve React build folder
+import dashboardRoutes from './Routes/dashboard.js';
+
 dotenv.config();
+
+// Fix __dirname in ESM
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const app=express();
 
+const app = express();
+
+// Middleware
 app.use(express.json());
 
-// 3️⃣ Serve React build
-app.use(express.static(path.join(__dirname, '../Frontend/dist')));
-
-
-
+// CORS - allow your deployed frontend
 app.use(cors({ 
-  origin: "https://jaap-counter-cq7o.onrender.com",
-   credentials: true 
-  }));
-//other middle ware
-app.use(express.json());
+  origin: "https://jaap-counter-cq7o.onrender.com", 
+  credentials: true 
+}));
+
+// MongoDB connection
 let totalCount = 0;
-mongoose.connect(process.env.MONGO_URI,{
-     useNewUrlParser: true,
-      useUnifiedTopology: true }).then(() => console.log("✅ MongoDB connected"))
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
+// Serve React build folder (frontend)
+app.use(express.static(path.join(__dirname, '../Frontend/dist')));
 
-    //  Test route
-app.get("/", (req, res) => {
-  res.send("Backend working fine ");
-});
-
-app.use("/api/auth",authRoutes);
-app.get("/api/count",(req,res)=>{
-
-  res.json({totalCount});
-})
-
-app.post("/test", (req, res) => {
-  console.log("✅ Test route hit");
-  res.json({ message: "Server working fine" });
-});
-
-// Route to receive count
+// API routes
+app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 
-// Fallback route for React SPA
-app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, '../Frontend/dist/index.html'));
+app.get("/api/count", (req, res) => {
+    res.json({ totalCount });
 });
-//mount dahsboard route
 
+app.post("/test", (req, res) => {
+    console.log("✅ Test route hit");
+    res.json({ message: "Server working fine" });
+});
+
+// Fallback route for React SPA - MUST BE LAST
+app.use((req, res) => {
+    res.sendFile(path.join(__dirname, '../Frontend/dist/index.html'));
+});
+
+// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log("Server running on port " + PORT);
+    console.log(`Server running on port ${PORT}`);
 });
