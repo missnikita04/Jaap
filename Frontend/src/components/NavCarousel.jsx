@@ -46,7 +46,7 @@ const NavCarousel = ({ onImageSelect }) => {
 
   return (
     <div className="w-full bg-transparent pt-16 text-white overflow-x-hidden">
-      <div className="max-w-[95vw] mx-auto pt-5 pb-0 overflow-hidden">
+      <div className="max-w-[99vw] mx-auto  pb-0 overflow-hidden">
         <Slider {...settings}>
           {japData.map((god, index) => (
             <div
@@ -57,9 +57,9 @@ const NavCarousel = ({ onImageSelect }) => {
                 src={god.src}
                 alt={god.name}
                 onClick={() => onImageSelect(god)}
-                className="object-cover rounded-full w-24 h-24 border-white shadow-lg mx-auto transition duration-300 hover:scale-105"
+                className="object-cover rounded-full  w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 border-white shadow-lg mx-auto transition duration-300 hover:scale-105"
               />
-              <p className="mt-2 text-center text-white font-semibold text-lg opacity-80 hover:opacity-100 transition-opacity duration-300">
+              <p className="mt-2 text-center text-white font-semibold text-xs sm:text-sm md:text-base lg:text-lg opacity-80 hover:opacity-100 transition-opacity duration-300">
                 {god.name}
               </p>
             </div>
