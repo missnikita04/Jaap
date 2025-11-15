@@ -110,7 +110,7 @@ console.log("API ERROR:", err.response?.data || err.message);        localStorag
         <motion.div whileHover={{ scale: 1.05 }}>
           <Link  to="/jaap" className="block w-full">
             <section className="flex justify-center items-center bg-[#8A0000] text-[#F9CB43] py-5 rounded-2xl font-semibold text-xl hover:shadow-lg hover:shadow-[#F9CB43]/40 transition-all">
-              🌼 Start Jaap
+              🌼 Start Jaap 🌼
             </section>
           </Link>
         </motion.div>
