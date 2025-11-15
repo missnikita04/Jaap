@@ -5,7 +5,7 @@ const ShowImage = ({ selectedImage }) => {
   return (
     <div className="relative transform transition-transform duration-500 ease-in-out
                     hover:shadow-[0_0_30px_10px_rgba(249,203,67,0.6)] hover:bg-white group p-1 rounded-3xl pt-0">
-      <div className="max-w-[90vw] sm:max-w-[300px] md:max-w-[450px] lg:max-w-[500px] w-full mx-auto">
+      <div className="max-w-[90vw] sm:max-w-[300px] md:max-w-[450px] lg:max-w-[500px] w-full mx-auto !important">
         <AnimatePresence mode="wait">
           {selectedImage ? (
             <motion.div
@@ -24,7 +24,7 @@ const ShowImage = ({ selectedImage }) => {
                            w-[200px] h-[300px] sm:w-[300px] sm:h-[450px] md:w-[350px] md:h-[530px] 
                            object-cover shadow-xl border border-black/50
                            transform transition-transform duration-500 ease-in-out
-                           group-hover:scale-105 group-hover:shadow-[0_0_30px_15px_rgba(249,203,67,0.7)]"
+                           group-hover:scale-105 group-hover:shadow-[0_0_30px_15px_rgba(249,203,67,0.7)] !important"
                 whileTap={{ scale: 0.95, rotate: [0, -3, 3, 0] }}
               />
 
@@ -49,7 +49,7 @@ const ShowImage = ({ selectedImage }) => {
               transition={{ duration: 0.5 }}
               className="bg-white rounded-full"
             >
-              <p className="p-2 text-[#8A0000] text-lg sm:text-2xl md:text-3xl text-center italic">
+              <p className="p-2 text-[#8A0000] text-lg sm:text-2xl md:text-3xl text-center italic !important">
                 Click an image to view
               </p>
             </motion.div>

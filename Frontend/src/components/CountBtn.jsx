@@ -141,12 +141,12 @@ function CountBtn() {
   className={`w-[280px] sm:w-[320px] h-[100px] sm:h-[150px] flex items-center justify-center gap-2
     rounded-xl font-bold text-lg sm:text-xl transition-all duration-300 ease-out
     ${clicked ? "bg-red-600 text-white" : "bg-gradient-to-r from-[#FFF287] to-[#FFD54F]"}
-    hover:from-[#F9CB43] hover:to-[#FFD54F]`}
+    hover:from-[#F9CB43] hover:to-[#FFD54F] !important`}
   whileTap={{ scale: 0.95 }}
 >
-  <IoMdFlower className="w-6 h-6 sm:w-7 sm:h-7 text-[#3B060A]" />
+  <IoMdFlower className="w-6 h-6 sm:w-7 sm:h-7 text-[#3B060A] !important" />
   Count
-  <IoMdFlower className="w-6 h-6 sm:w-7 sm:h-7 text-[#3B060A]" />
+  <IoMdFlower className="w-6 h-6 sm:w-7 sm:h-7 text-[#3B060A] !important" />
 </motion.button>          )}
         </AnimatePresence>
       </div>
