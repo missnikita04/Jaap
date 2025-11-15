@@ -33,9 +33,13 @@ function CountBtn() {
         { count: 1 },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      // Use backend value
+    setCount(res.data.count);
+    setRound(res.data.rounds);
     } catch (error) {
       console.error("❌ Error sending count:", error);
     }
+    
   };
 
   const handleReset = () => {

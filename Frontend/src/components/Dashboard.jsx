@@ -32,7 +32,25 @@ console.log("API ERROR:", err.response?.data || err.message);        localStorag
 
     fetchData();
   }, [navigate]);
+ // Increment count + update both count and rounds
+  const incrementCount = async (amount = 1) => {
+    const token = localStorage.getItem("token");
+    if (!token) return navigate("/login");
 
+    try {
+      const res = await axios.post(
+        `${API_URL}/api/dashboard/count`,
+        { count: amount },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      // Update frontend state immediately
+      setTotal(res.data.count);
+      setRounds(res.data.rounds);
+    } catch (err) {
+      console.error("Increment Error:", err.response?.data || err.message);
+    }
+  };
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
@@ -90,7 +108,7 @@ console.log("API ERROR:", err.response?.data || err.message);        localStorag
 
         {/* Start Button */}
         <motion.div whileHover={{ scale: 1.05 }}>
-          <Link to="/jaap" className="block w-full">
+          <Link  to="/jaap" className="block w-full">
             <section className="flex justify-center items-center bg-[#8A0000] text-[#F9CB43] py-5 rounded-2xl font-semibold text-xl hover:shadow-lg hover:shadow-[#F9CB43]/40 transition-all">
               🌼 Start Jaap
             </section>
