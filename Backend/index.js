@@ -49,10 +49,9 @@ app.post("/test", (req, res) => {
 });
 
 // Fallback route for React SPA - MUST BE LAST
-app.get('*', (req, res) => {
+app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
-
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
