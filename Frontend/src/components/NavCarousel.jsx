@@ -15,7 +15,6 @@ const NavCarousel = ({ onImageSelect }) => {
     autoplaySpeed: 2000,
     initialSlide: 0,
     arrows: false,
-    dots: false,
     centerMode: true,          // center active slide
     centerPadding: "0px",
     swipeToSlide: true,

@@ -5,7 +5,8 @@ import dotenv from "dotenv";
 import authRoutes from "./Routes/auth.js";
 import dashboardRoutes from './Routes/dashboard.js'
 // import countRoutes from "./Routes/count.js";
-
+// Serve React build folder
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
 dotenv.config();
 console.log("JWT_SECRET:", process.env.JWT_SECRET ? "SET" : "MISSING");
 
@@ -43,6 +44,10 @@ app.post("/test", (req, res) => {
 // Route to receive count
 app.use("/api/dashboard", dashboardRoutes);
 
+// Fallback route for React SPA
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+});
 
 //mount dahsboard route
 
