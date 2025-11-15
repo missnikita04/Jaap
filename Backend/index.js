@@ -8,16 +8,13 @@ import dashboardRoutes from "./Routes/dashboard.js";
 dotenv.config();
 
 const app = express();
-
-app.use(express.json());
-
 app.use(cors({
-  origin: [
-    "https://jaap-counter-cq7o.onrender.com", 
-    "http://localhost:5173"
-  ],
+  origin: ["https://jaap-counter-n4zs.onrender.com"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
+
+app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
