@@ -104,7 +104,7 @@ function CountBtn() {
              transition-all duration-300 ease-out hover:!from-[#8A0000] hover:!to-[#E52B2B] hover:!text-white active:!scale-95"
         >
           <GrPowerReset className="!w-6 !h-6 !text-[#3B060A] group-hover:!text-white transition-colors duration-300" />
-          Reset
+          Reset count
         </button>
       </div>
 
