@@ -9,7 +9,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: ["https://jaap-counter-n4zs.onrender.com"],
+  origin: ["https://jaap-counter-c8cu.onrender.com"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
