@@ -42,7 +42,11 @@ body,html {
 }
 
 .slick-slide {
+   outline: none !important;
   padding: 0 10px; /* horizontal spacing between slides */
+}
+.slick-slide * {
+  outline: none !important;
 }
 .slick-track {
   margin-bottom: 0 !important;

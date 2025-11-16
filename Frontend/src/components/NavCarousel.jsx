@@ -18,6 +18,8 @@ const NavCarousel = ({ onImageSelect }) => {
     centerMode: true,          // center active slide
     centerPadding: "0px",
     swipeToSlide: true,
+    accessibility: false,
+focusOnSelect: false,
     responsive: [
 {
       breakpoint: 1024,
