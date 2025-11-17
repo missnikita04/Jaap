@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -8,6 +9,7 @@ const SignupForm = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ username: "", email: "", password: "" });
   const [message, setMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // show/hide password
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -21,7 +23,6 @@ const SignupForm = () => {
       const res = await axios.post(`${API_URL}/api/auth/signup`, form);
 
       if (res.status === 201 && res.data.userId) {
-        // Save token only after confirmed save
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userId", res.data.userId);
         localStorage.setItem("username", res.data.username);
@@ -46,6 +47,7 @@ const SignupForm = () => {
         <h2 className="text-3xl font-bold text-center text-[#F9CB43] mb-6">Sign Up</h2>
 
         <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Username */}
           <div>
             <label className="block mb-1 text-[#3B060A] font-semibold">Username</label>
             <input
@@ -59,6 +61,7 @@ const SignupForm = () => {
             />
           </div>
 
+          {/* Email */}
           <div>
             <label className="block mb-1 text-[#3B060A] font-semibold">Email</label>
             <input
@@ -72,20 +75,29 @@ const SignupForm = () => {
             />
           </div>
 
-          <div>
+          {/* Password with Eye */}
+          <div className="relative">
             <label className="block mb-1 text-[#3B060A] font-semibold">Password</label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               value={form.password}
               onChange={handleChange}
               placeholder="Enter your password"
-              className="w-full px-4 py-2 rounded-xl bg-[#3B060A] border border-[#F9CB43] focus:outline-none focus:ring-2 focus:ring-[#F9CB43] placeholder-gray-300"
+              className="w-full px-4 py-2 pr-12 rounded-xl bg-[#3B060A] border border-[#F9CB43] focus:outline-none focus:ring-2 focus:ring-[#F9CB43] placeholder-gray-300"
               required
             />
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+ className="absolute right-3 top-1/2 translate-y-0 cursor-pointer text-[#3B060A]"
+    style={{ top: "50%", transform: "translateY(20%)" }}             >
+              {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+            </span>
           </div>
 
-          {message && <p className="text-center mt-4 text-yellow-400 font-medium">{message}</p>}
+          {message && (
+            <p className="text-center mt-4 text-yellow-400 font-medium">{message}</p>
+          )}
 
           <button
             type="submit"
