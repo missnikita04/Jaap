@@ -11,29 +11,22 @@ const Login = () => {
   const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  // Handle input change
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Handle login submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const res = await axios.post(`${API_URL}/api/auth/login`, form);
 
-      // Save token + user info
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.userId);
       localStorage.setItem("username", res.data.username);
 
       setMessage("Login successful!");
-
-      // Clear form
       setForm({ email: "", password: "" });
-
-      // Redirect to dashboard
       navigate("/dashboard");
     } catch (err) {
       setMessage(err.response?.data || "❌ Invalid email or password");
@@ -47,42 +40,31 @@ const Login = () => {
           Login
         </h2>
 
-        {/* LOGIN FORM */}
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Email Input */}
+          {/* Email */}
           <div>
-            <label
-              className="block mb-1 text-[#3B060A] font-semibold"
-              htmlFor="email"
-            >
-              Email
-            </label>
+            <label className="block mb-1 text-[#3B060A] font-semibold">Email</label>
             <input
               type="email"
               name="email"
               value={form.email}
               onChange={handleChange}
               placeholder="Enter your email"
-              className="w-full px-4 py-2 rounded-xl bg-[#3B060A] border border-[#F9CB43] focus:outline-none focus:ring-2 focus:ring-[#F9CB43] placeholder-gray-300"
+              className="w-full px-4 py-2 pr-12 rounded-xl bg-[#3B060A] text-[#F9CB43] border border-[#F9CB43] focus:outline-none focus:ring-2 focus:ring-[#F9CB43] placeholder-[#F9CB43]/50"
               required
             />
           </div>
 
-          {/* Password Input with Eye */}
+          {/* Password */}
           <div className="relative">
-            <label
-              className="block mb-1 text-[#3B060A] font-semibold"
-              htmlFor="password"
-            >
-              Password
-            </label>
+            <label className="block mb-1 text-[#3B060A] font-semibold">Password</label>
             <input
               type={showPassword ? "text" : "password"}
               name="password"
               value={form.password}
               onChange={handleChange}
               placeholder="Enter your password"
-              className="w-full px-4 py-2 pr-12 rounded-xl bg-[#3B060A] border border-[#F9CB43] focus:outline-none focus:ring-2 focus:ring-[#F9CB43] placeholder-gray-300"
+              className="w-full px-4 py-2 pr-12 rounded-xl bg-[#3B060A] text-[#F9CB43] border border-[#F9CB43] focus:outline-none focus:ring-2 focus:ring-[#F9CB43] placeholder-[#F9CB43]/50"
               required
             />
             <span
@@ -90,11 +72,11 @@ const Login = () => {
               className="absolute right-3 top-1/2 translate-y-0 cursor-pointer text-yellow-800"
     style={{ top: "50%", transform: "translateY(30%)" }} 
             >
+            
               {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
             </span>
           </div>
 
-          {/* Forgot Password Link */}
           <div className="text-right">
             <Link
               to="/forget-password"
@@ -104,7 +86,6 @@ const Login = () => {
             </Link>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-[#F9CB43] text-black font-bold py-2 rounded-xl hover:scale-105 transition-all"
@@ -113,12 +94,8 @@ const Login = () => {
           </button>
         </form>
 
-        {/* Message */}
-        {message && (
-          <p className="text-center text-yellow-400 mt-4">{message}</p>
-        )}
+        {message && <p className="text-center text-yellow-400 mt-4">{message}</p>}
 
-        {/* Sign Up Link */}
         <p className="text-center text-gray-600 mt-5">
           Don’t have an account?{" "}
           <Link
