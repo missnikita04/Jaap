@@ -5,47 +5,34 @@ import "slick-carousel/slick/slick-theme.css";
 import { japData } from "../assets/assets";
 
 const NavCarousel = ({ onImageSelect }) => {
-  const settings = {
-    dots:false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 5,           // desktop max slides
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    initialSlide: 0,
-    arrows: false,
-    centerMode: true,          // center active slide
-    centerPadding: "0px",
-    swipeToSlide: true,
-    accessibility: false,
-focusOnSelect: false,
-    responsive: [
-{
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        infinite: true,
-      },
-    },
+const settings = {
+  dots: false,
+  infinite: true,
+  speed: 400, // faster speed
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  centerMode: true,
+  centerPadding: "0px",
+  initialSlide: 0,
+  responsive: [
     {
-      breakpoint: 600,
+      breakpoint: 768,
       settings: {
         slidesToShow: 2,
-        slidesToScroll: 1,
+        centerMode: true,
+        centerPadding: "0px",
       },
     },
     {
       breakpoint: 480,
       settings: {
         slidesToShow: 1,
-        slidesToScroll: 1,
+        centerMode: true,
+        centerPadding: "0px",
       },
-    },    
+    },
   ],
-  };
-
+};
   return (
     <div className="w-full bg-transparent pt-16 text-white overflow-x-hidden">
       <div className="max-w-[99vw] mx-auto  pb-0 overflow-hidden">

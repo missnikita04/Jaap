@@ -1,18 +1,20 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Poppins:wght@500&family=Saira:ital,wght@0,100..900;1,100..900&display=swap');
 
-* {
-  font-family: "Fredoka", sans-serif;
+@import "tailwindcss";
+
+
+
+*{
+   font-family: "Fredoka", sans-serif;
   font-optical-sizing: auto;
-  box-sizing: border-box;
+   box-sizing: border-box;
 }
 
+
+
 body,html {
-  width: 100%;
-  overflow-x: hidden;
+   width: 100%;
+  overflow-x: hidden; /* 👈 Stops horizontal scroll */
   scroll-behavior: smooth;
   font-family: 'Saira', 'Poppins', sans-serif;
 }
