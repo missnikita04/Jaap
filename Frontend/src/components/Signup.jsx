@@ -89,8 +89,8 @@ const SignupForm = () => {
             />
             <span
               onClick={() => setShowPassword(!showPassword)}
- className="absolute right-3 top-1/2 translate-y-0 cursor-pointer text-[#3B060A]"
-    style={{ top: "50%", transform: "translateY(20%)" }}             >
+              className="absolute inset-y-4 right-3 flex items-center cursor-pointer text-[#F9CB43]"
+            >
               {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
             </span>
           </div>
